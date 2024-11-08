@@ -1,11 +1,15 @@
 # AimWave
 
-## External Resources
+## External Resource
 
-Rifle model: https://assetstore.unity.com/packages/3d/props/guns/low-poly-sci-fi-weapons-lite-296460
-Crosshair: https://kenney.nl/assets/crosshair-pack
+- [Prototyping Pack](https://assetstore.unity.com/packages/3d/prototyping-pack-free-94277)
+- [Rifle model](https://assetstore.unity.com/packages/3d/props/guns/low-poly-sci-fi-weapons-lite-296460)
+- [Crosshair](https://kenney.nl/assets/crosshair-pack)
 
-## TODO
+# TODO
 
 - Skybox
-- HUD (ammo, crosshair)
+- Bullet impact effect
+- Wepon sound
+- Muzzle effect
+- Recoil animation
