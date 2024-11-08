@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -9,6 +7,9 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Target"))
         {
             Destroy(collision.gameObject);
+            Destroy(gameObject);
+        } else if (collision.gameObject.CompareTag("Wall"))
+        {
             Destroy(gameObject);
         }
     }
