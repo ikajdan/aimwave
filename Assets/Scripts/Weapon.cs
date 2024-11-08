@@ -15,6 +15,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private int ammoPerClip = 30;
     [SerializeField] private float reloadTime = 2.0f;
     [SerializeField] private TextMeshProUGUI ammoText;
+    [SerializeField] private GameObject muzzleFlash;
 
     private int currentAmmo;
     private float nextFireTime;
@@ -50,6 +51,8 @@ public class Weapon : MonoBehaviour
 
     private void FireWeapon()
     {
+        muzzleFlash.GetComponent<ParticleSystem>().Play();
+
         nextFireTime = Time.time + 1 / fireRate;
         currentAmmo--;
         UpdateAmmoUI();
