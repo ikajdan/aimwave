@@ -72,6 +72,9 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Custom Assets
-/Assets/DigitalKonstrukt/
-/Assets/TextMesh Pro/
-/Assets/LP_SciFiWeapons_Lite/
+/[Aa]ssets/DigitalKonstrukt/
+/[Aa]ssets/TextMesh Pro/
+/[Aa]ssets/LP_SciFiWeapons_Lite/
+
+# Builds
+/[Bb]uilds/

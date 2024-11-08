@@ -9,6 +9,6 @@
 ## TODO
 
 - Bullet impact effect
-- Wepon sound
+- Weapon sound
 - Muzzle effect
 - Recoil animation
