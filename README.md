@@ -10,5 +10,3 @@
 ## TODO
 
 - Shooting sound
-- Recoil animation
-- Reload animation
