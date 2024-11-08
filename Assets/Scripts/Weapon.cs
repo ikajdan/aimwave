@@ -6,10 +6,10 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform bulletSpawn;
-    [SerializeField] private float bulletSpeed = 100.0f;
+    [SerializeField] private float bulletSpeed = 500.0f;
     [SerializeField] private float bulletLifetime = 2.0f;
-    [SerializeField] private float fireRate = 8.0f;
-    [SerializeField] private float weaponSpread = 0.05f;
+    [SerializeField] private float fireRate = 7.0f;
+    [SerializeField] private float weaponSpread = 0.03f;
     [SerializeField] private int ammoPerClip = 30;
     [SerializeField] private float reloadTime = 2.0f;
 
