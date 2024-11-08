@@ -1,17 +1,20 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private Camera playerCamera;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform bulletSpawn;
-    [SerializeField] private float bulletSpeed = 500.0f;
+    [SerializeField] private float bulletSpeed = 1000.0f;
     [SerializeField] private float bulletLifetime = 2.0f;
     [SerializeField] private float fireRate = 7.0f;
     [SerializeField] private float weaponSpread = 0.03f;
     [SerializeField] private int ammoPerClip = 30;
     [SerializeField] private float reloadTime = 2.0f;
+    [SerializeField] private TextMeshProUGUI ammoText;
 
     private int currentAmmo;
     private float nextFireTime;
@@ -20,6 +23,7 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         currentAmmo = ammoPerClip;
+        UpdateAmmoUI();
     }
 
     private void Update()
@@ -48,6 +52,7 @@ public class Weapon : MonoBehaviour
     {
         nextFireTime = Time.time + 1 / fireRate;
         currentAmmo--;
+        UpdateAmmoUI();
 
         Vector3 spreadDirection = GetSpreadDirection();
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.LookRotation(spreadDirection));
@@ -76,5 +81,11 @@ public class Weapon : MonoBehaviour
         yield return new WaitForSeconds(reloadTime);
         currentAmmo = ammoPerClip;
         isReloading = false;
+        UpdateAmmoUI();
+    }
+
+    private void UpdateAmmoUI()
+    {
+        ammoText.text = currentAmmo.ToString();
     }
 }
