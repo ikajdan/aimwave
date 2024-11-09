@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    private TargetSpawner targetSpawner;
+
     void Start()
     {
         Physics.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Ignore Raycast"));
+        targetSpawner = FindObjectOfType<TargetSpawner>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -12,6 +15,7 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Target"))
         {
             Destroy(collision.gameObject);
+            targetSpawner.IncrementScore();
             Destroy(gameObject);
         }
         else

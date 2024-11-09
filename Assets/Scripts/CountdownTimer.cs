@@ -4,11 +4,12 @@ using TMPro;
 public class CountdownTimer : MonoBehaviour
 {
     public TextMeshProUGUI timerText;
-    private float timeRemaining = 30f;
+    public TargetSpawner targetSpawner;
+    private float timeRemaining = 30.0f;
     private int previousSecond;
     private bool hasPlayedTimeUpSound = false;
     private bool countdownStarted = false;
-    private float delayBeforeStart = 3f;
+    private float delayBeforeStart = 3.0f;
 
     void Start()
     {
@@ -17,10 +18,15 @@ public class CountdownTimer : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !countdownStarted)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            countdownStarted = true;
-            SoundManager.Instance.countDown.Play();
+            if (!countdownStarted || (timeRemaining <= 0 && hasPlayedTimeUpSound))
+            {
+                ResetTimer();
+                countdownStarted = true;
+                delayBeforeStart = 3.0f;
+                SoundManager.Instance.countDown.Play();
+            }
         }
 
         if (countdownStarted && delayBeforeStart > 0)
@@ -29,30 +35,32 @@ public class CountdownTimer : MonoBehaviour
             return;
         }
 
-        if (countdownStarted && delayBeforeStart <= 0)
+        if (countdownStarted && delayBeforeStart <= 0 && !targetSpawner.TargetSpawnerActive)
         {
-            if (timeRemaining > 0)
-            {
-                timeRemaining -= Time.deltaTime;
-                DisplayTime(timeRemaining);
-                CheckForBeep(Mathf.FloorToInt(timeRemaining));
-            }
-            else
-            {
-                timeRemaining = 0;
-                DisplayTime(timeRemaining);
-
-                if (!hasPlayedTimeUpSound)
-                {
-                    SoundManager.Instance.timeUp.Play();
-                    hasPlayedTimeUpSound = true;
-                }
-            }
+            targetSpawner.TargetSpawnerActive = true;
+            targetSpawner.SpawnTargetsAtCenters();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && timeRemaining <= 0 && hasPlayedTimeUpSound)
+        if (countdownStarted && timeRemaining > 0)
         {
-            ResetTimer();
+            timeRemaining -= Time.deltaTime;
+            DisplayTime(timeRemaining);
+            CheckForBeep(Mathf.FloorToInt(timeRemaining));
+        }
+        else if (countdownStarted && timeRemaining <= 0)
+        {
+            timeRemaining = 0;
+            DisplayTime(timeRemaining);
+
+            if (!hasPlayedTimeUpSound)
+            {
+                SoundManager.Instance.beepTone.Play();
+                SoundManager.Instance.timeUp.Play();
+                targetSpawner.StopSpawning();
+                targetSpawner.DestroyAllTargets();
+                hasPlayedTimeUpSound = true;
+                countdownStarted = false;
+            }
         }
     }
 
@@ -67,7 +75,7 @@ public class CountdownTimer : MonoBehaviour
 
     void CheckForBeep(int currentSecond)
     {
-        if ((currentSecond == 3 || currentSecond == 2 || currentSecond == 1 || currentSecond == 0) && currentSecond != previousSecond)
+        if ((currentSecond == 2 || currentSecond == 1 || currentSecond == 0) && currentSecond != previousSecond)
         {
             SoundManager.Instance.beepTone.Play();
             previousSecond = currentSecond;
@@ -76,10 +84,13 @@ public class CountdownTimer : MonoBehaviour
 
     void ResetTimer()
     {
-        timeRemaining = 30f;
+        timeRemaining = 30.0f;
         previousSecond = Mathf.FloorToInt(timeRemaining);
         hasPlayedTimeUpSound = false;
         countdownStarted = false;
-        delayBeforeStart = 3f;
+        delayBeforeStart = 3.0f;
+        targetSpawner.DestroyAllTargets();
+        targetSpawner.ResetScore();
+        targetSpawner.TargetSpawnerActive = false;
     }
 }
