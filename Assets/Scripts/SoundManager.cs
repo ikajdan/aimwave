@@ -4,8 +4,12 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
 
-    public AudioSource shootingSound;
-    public AudioSource reloadingSound;
+    public AudioSource gunShot;
+    public AudioSource reload;
+    public AudioSource countDown;
+    public AudioSource beepTone;
+    public AudioSource timeUp;
+
 
     private void Awake()
     {
