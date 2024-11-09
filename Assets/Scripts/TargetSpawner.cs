@@ -8,24 +8,44 @@ public class TargetSpawner : MonoBehaviour
     public TextMeshProUGUI scoreText;
     private int score = 0;
 
+    private readonly float wallHeight = 5.0f;
+    private readonly float tileSize = 5.0f;
+
     public bool TargetSpawnerActive { get; set; } = false;
 
     public void SpawnTargetsAtCenters()
     {
         if (TargetSpawnerActive)
         {
-            SpawnTargetAtTop(wall1);
-            SpawnTargetAtTop(wall2);
-            SpawnTargetAtTop(wall3);
-            SpawnTargetAtTop(wall4);
+            SpawnTargetAtWall(wall1);
+            SpawnTargetAtWall(wall2);
+            SpawnTargetAtWall(wall3);
+            SpawnTargetAtWall(wall4);
         }
     }
 
-    void SpawnTargetAtTop(Transform wall)
+    void SpawnTargetAtWall(Transform wall)
     {
-        Vector3 topPosition = wall.position + new Vector3(0, 2.5f, 0);
-        GameObject newTarget = Instantiate(targetPrefab, topPosition, Quaternion.identity);
+        Vector3 randomPosition = GetRandomPositionAlongWall(wall);
+        Vector3 spawnPosition = randomPosition + new Vector3(0, wallHeight / 2, 0);
+        GameObject newTarget = Instantiate(targetPrefab, spawnPosition, Quaternion.identity);
         newTarget.transform.rotation = Quaternion.LookRotation(wall.forward);
+    }
+
+    Vector3 GetRandomPositionAlongWall(Transform wall)
+    {
+        if (wall == wall3 || wall == wall4)
+        {
+            float randomZ = Random.Range(wall.position.z - tileSize, wall.position.z + tileSize);
+            float randomX = wall.position.x;
+            return new Vector3(randomX, wall.position.y, randomZ);
+        }
+        else
+        {
+            float randomX = Random.Range(wall.position.x - tileSize, wall.position.x + tileSize);
+            float randomZ = wall.position.z;
+            return new Vector3(randomX, wall.position.y, randomZ);
+        }
     }
 
     public void DestroyAllTargets()
