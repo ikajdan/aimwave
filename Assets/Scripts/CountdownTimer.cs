@@ -17,12 +17,8 @@ public class CountdownTimer : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !countdownStarted)
         {
-            if (timeRemaining <= 0 && hasPlayedTimeUpSound)
-            {
-                ResetTimer();
-            }
             countdownStarted = true;
             SoundManager.Instance.countDown.Play();
         }
@@ -52,6 +48,11 @@ public class CountdownTimer : MonoBehaviour
                     hasPlayedTimeUpSound = true;
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && timeRemaining <= 0 && hasPlayedTimeUpSound)
+        {
+            ResetTimer();
         }
     }
 
