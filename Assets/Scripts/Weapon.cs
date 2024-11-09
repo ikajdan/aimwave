@@ -8,11 +8,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform bulletSpawn;
-    [SerializeField] private float bulletSpeed = 1000.0f;
+    [SerializeField] private float bulletSpeed = 250.0f;
     [SerializeField] private float bulletLifetime = 2.0f;
-    [SerializeField] private float fireRate = 7.0f;
+    [SerializeField] private float fireRate = 2.0f;
     [SerializeField] private float weaponSpread = 0.03f;
-    [SerializeField] private int ammoPerClip = 30;
+    [SerializeField] private int ammoPerClip = 10;
     [SerializeField] private float reloadTime = 2.0f;
     [SerializeField] private TextMeshProUGUI ammoText;
     [SerializeField] private GameObject muzzleFlash;
@@ -56,6 +56,8 @@ public class Weapon : MonoBehaviour
         muzzleFlash.GetComponent<ParticleSystem>().Play();
         animator.SetTrigger("Fire");
 
+        SoundManager.Instance.shootingSound.Play();
+
         nextFireTime = Time.time + 1 / fireRate;
         currentAmmo--;
         UpdateAmmoUI();
@@ -84,10 +86,17 @@ public class Weapon : MonoBehaviour
     private IEnumerator Reload()
     {
         isReloading = true;
+
         animator.SetTrigger("Reload");
+
+        SoundManager.Instance.reloadingSound.Play();
+
         yield return new WaitForSeconds(reloadTime);
+
         currentAmmo = ammoPerClip;
+
         isReloading = false;
+
         UpdateAmmoUI();
     }
 
