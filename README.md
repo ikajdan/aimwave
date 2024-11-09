@@ -5,6 +5,8 @@ AimWave is a simple 3D game developed in Unity. The game is a first-person shoot
 ## External Resource
 
 - [Low Poly Sci-Fi Weapons Lite](https://assetstore.unity.com/packages/3d/props/guns/low-poly-sci-fi-weapons-lite-296460)
-- [Crosshair](https://kenney.nl/assets/crosshair-pack)
 - [Particle Pack](https://assetstore.unity.com/packages/vfx/particles/legacy-particle-pack-73777)
 - [Prototyping Pack](https://assetstore.unity.com/packages/3d/prototyping-pack-free-94277)
+- [Crosshair](https://kenney.nl/assets/crosshair-pack)
+- [HUD Font](https://www.dafont.com/spy-agency.font)
+- [Sound Effects](https://pixabay.com/sound-effects/search/public-domain/)
