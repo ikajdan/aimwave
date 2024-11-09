@@ -38,7 +38,7 @@ public class CountdownTimer : MonoBehaviour
         if (countdownStarted && delayBeforeStart <= 0 && !targetSpawner.TargetSpawnerActive)
         {
             targetSpawner.TargetSpawnerActive = true;
-            targetSpawner.SpawnTargetsAtCenters();
+            targetSpawner.SpawnTargets();
         }
 
         if (countdownStarted && timeRemaining > 0)
@@ -68,9 +68,9 @@ public class CountdownTimer : MonoBehaviour
     {
         timeToDisplay = Mathf.Max(0, timeToDisplay);
         int seconds = Mathf.FloorToInt(timeToDisplay);
-        int hundredths = Mathf.FloorToInt((timeToDisplay % 1) * 100);
-
-        timerText.text = string.Format("{0:00}.{1:00}", seconds, hundredths);
+        float fractionalPart = timeToDisplay - seconds;
+        // Display only the first digit after the decimal point
+        timerText.text = string.Format("{0:00}.{1:0}", seconds, Mathf.FloorToInt(fractionalPart * 10));
     }
 
     void CheckForBeep(int currentSecond)
