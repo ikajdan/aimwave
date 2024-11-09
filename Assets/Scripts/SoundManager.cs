@@ -21,8 +21,5 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
         }
-        {
-            Instance = this;
-        }
     }
 }
