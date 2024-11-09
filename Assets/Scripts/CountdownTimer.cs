@@ -38,7 +38,7 @@ public class CountdownTimer : MonoBehaviour
         if (countdownStarted && delayBeforeStart <= 0 && !targetSpawner.TargetSpawnerActive)
         {
             targetSpawner.TargetSpawnerActive = true;
-            targetSpawner.SpawnTargets();
+            targetSpawner.StartSpawning();
         }
 
         if (countdownStarted && timeRemaining > 0)

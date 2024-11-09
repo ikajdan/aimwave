@@ -23,7 +23,7 @@ The following table lists the controls in the game:
 
 ## Game Mechanics
 
-The game features a simple scoring system, granting 1 point for each target hit. Targets appear at random locations along the walls, facing the player, and must be shot to score. The game ends when the 30-second timer runs out. Players can reload their gun at any moment, though the weapon can only hold 10 bullets at a time.
+The game features a simple scoring system, granting 1 point for each target hit. Targets randomly appear along the walls facing the player, and must be shot to score. Each wall has 3 targets, and to make them reappear, all 3 must be destroyed. The next set of targets will spawn after a brief delay. The game ends when the 30-second timer runs out. Players can reload their gun at any moment, though the weapon can only hold 10 bullets at a time.
 
 ## Project Structure
 
@@ -35,7 +35,3 @@ The game features a simple scoring system, granting 1 point for each target hit.
 - [Crosshair](https://kenney.nl/assets/crosshair-pack)
 - [HUD Font](https://www.dafont.com/spy-agency.font)
 - [Sound Effects](https://pixabay.com/sound-effects/search/public-domain/)
-
-## TODO
-
-- Fix crosshair/bullets offcenter

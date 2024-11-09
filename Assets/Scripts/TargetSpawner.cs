@@ -1,10 +1,11 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class TargetSpawner : MonoBehaviour
 {
     public GameObject targetPrefab;
-    public Transform wall1, wall2, wall3, wall4;
+    public Transform wallFront, wallRight, wallRear, wallLeft;
     public TextMeshProUGUI scoreText;
     private int score = 0;
 
@@ -15,15 +16,43 @@ public class TargetSpawner : MonoBehaviour
 
     public bool TargetSpawnerActive { get; set; } = false;
 
-    public void SpawnTargets()
+    public Transform sensorWallFront, sensorWallRight, sensorWallRear, sensorWallLeft;
+
+    private bool waitingForRespawn = false;
+
+    public void StartSpawning()
     {
+        if (TargetSpawnerActive && !waitingForRespawn)
+        {
+            SpawnTargetsImmediately();
+        }
+    }
+
+    void SpawnTargetsImmediately()
+    {
+        SpawnTarget(wallFront);
+        SpawnTarget(wallRear);
+        SpawnTarget(wallLeft);
+        SpawnTarget(wallRight);
+        StartCoroutine(SpawnTargetsAfterDelay());
+    }
+
+    IEnumerator SpawnTargetsAfterDelay()
+    {
+        waitingForRespawn = true;
+
+        float waitTime = Random.Range(2f, 3f);
+        yield return new WaitForSeconds(waitTime);
+
         if (TargetSpawnerActive)
         {
-            SpawnTarget(wall1);
-            SpawnTarget(wall2);
-            SpawnTarget(wall3);
-            SpawnTarget(wall4);
+            if (IsWallEmpty(sensorWallFront)) SpawnTarget(wallFront);
+            if (IsWallEmpty(sensorWallRear)) SpawnTarget(wallRear);
+            if (IsWallEmpty(sensorWallLeft)) SpawnTarget(wallLeft);
+            if (IsWallEmpty(sensorWallRight)) SpawnTarget(wallRight);
         }
+
+        waitingForRespawn = false;
     }
 
     void SpawnTarget(Transform wall)
@@ -45,7 +74,7 @@ public class TargetSpawner : MonoBehaviour
 
     Vector3 GetRandomPositionAlongWall(Transform wall, float offset)
     {
-        if (wall == wall3 || wall == wall4)
+        if (wall == wallLeft || wall == wallRight)
         {
             float randomZ = wall.position.z + offset;
             float randomX = wall.position.x;
@@ -87,5 +116,45 @@ public class TargetSpawner : MonoBehaviour
     public void StopSpawning()
     {
         TargetSpawnerActive = false;
+    }
+
+    void Update()
+    {
+        if (TargetSpawnerActive)
+        {
+            CheckAndRespawnTargets(sensorWallFront, wallFront);
+            CheckAndRespawnTargets(sensorWallRear, wallRear);
+            CheckAndRespawnTargets(sensorWallLeft, wallLeft);
+            CheckAndRespawnTargets(sensorWallRight, wallRight);
+        }
+    }
+
+    void CheckAndRespawnTargets(Transform sensor, Transform wall)
+    {
+        if (IsWallEmpty(sensor) && !waitingForRespawn)
+        {
+            StartCoroutine(SpawnTargetsAfterDelay());
+        }
+    }
+
+    bool IsWallEmpty(Transform sensor)
+    {
+        BoxCollider sensorCollider = sensor.GetComponent<BoxCollider>();
+        if (sensorCollider == null)
+        {
+            return false;
+        }
+
+        Collider[] hitColliders = Physics.OverlapBox(sensor.position, sensorCollider.size / 2, Quaternion.identity);
+
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.CompareTag("Target"))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
