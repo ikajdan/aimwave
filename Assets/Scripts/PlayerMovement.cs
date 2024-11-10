@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2.0f; // Keeps player grounded
+            velocity.y = -2.0f;
         }
     }
 
@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if (!isGrounded) // Only apply gravity if not grounded
+        if (!isGrounded)
         {
             velocity.y += gravity * Time.deltaTime;
         }
