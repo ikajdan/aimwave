@@ -10,8 +10,7 @@
   <a href="#controls">Controls</a> •
   <a href="#user-interface">User Interface</a> •
   <a href="#world">World</a> •
-  <a href="#project-structure">Project Structure</a> •
-  <a href="#external-assets">External Assets</a>
+  <a href="#project-structure">Project Structure</a>
 </p>
 
 AimWave is a simple 3D first-person shooter developed in Unity. In this game, players shoot targets to score points within a 30-second time limit, aiming to achieve the highest possible score before time runs out.
@@ -22,7 +21,7 @@ The game features a simple scoring system, granting 1 point for each target hit.
 
 <br>
 <div align="center">
-  <img src=".images/gameplay.mp4" width="700" height="auto"/>
+  <img src="https://github.com/user-attachments/assets/a8402c7d-a4df-4e0b-9473-d73122da7a46" width="700" height="auto"/>
   <br><br>
   <em>Gameplay Highlight.</em>
 </div>
@@ -62,7 +61,7 @@ The arena map is designed as a simple, enclosed space with walls that serve as t
 
 <br>
 <div align="center">
-  <img src=".images/map.png" width="400" height="auto"/>
+  <img src=".images/map.png" width="700" height="auto"/>
   <br><br>
   <em>Arena Layout.</em>
 </div>
@@ -131,6 +130,8 @@ graph TD
     MouseMovement -->|Handles camera rotation| PlayerMovement
     SoundManager -->|Plays sounds for actions| TimeManager
 ```
+
+<br>
 <div align="center">
   <em>Game Script Interactions Diagram.</em>
 </div>
@@ -242,6 +243,7 @@ stateDiagram-v2
     Reload --> Idle
 ```
 
+<br>
 <div align="center">
   <em>Rifle Animation State Diagram.</em>
 </div>
