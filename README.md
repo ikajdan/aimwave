@@ -76,6 +76,7 @@ The project is structured around several scripts that manage different aspects o
 
 The game consists of a single scene that contains all the elements required for gameplay. The scene is organized into different game objects that represent various components of the game, such as the player, targets, arena, and user interface elements.
 
+- Logger: A script that logs messages to a file for debugging and tracking events during gameplay.
 - Ground: The base of the arena where the player moves and interacts.
 - Arena: A defined space that includes walls and box colliders acting as sensors to detect the presence of targets.
 - Directional Light: Provides ambient lighting for the scene.
@@ -176,6 +177,53 @@ The `GlobalReference` singleton ensures that global objects, like the bullet pre
 Bullets are instantiated and moved using physics (RigidBody). They are destroyed after a set lifetime or upon collision with a target. The `Bullet` script ensures that collisions with targets trigger appropriate actions such as scoring and target destruction.
 
 `PlayerMovement` script uses a ground check and gravity system to simulate realistic movement and falling physics for the player.
+
+#### Logging and Debugging
+
+The `Logger` script provides a centralized logging system for debugging and tracking events during gameplay. It logs messages to the the `game_log.json` file with timestamps and class tags. For example, the following code logs an event when a bullet hits a target:
+
+```csharp
+Logger.Instance.LogEvent("Bullet", "Hit target: " + collision.gameObject.name);
+```
+
+The log file is structured as follows:
+
+```json
+{
+    "entries": [
+        {
+            "eventType": "All targets destroyed.",
+            "message": "TargetSpawner",
+            "timestamp": "2024-11-10 14:27:55.695"
+        },
+        {
+            "eventType": "Score reset to 0.",
+            "message": "TargetSpawner",
+            "timestamp": "2024-11-10 14:27:55.695"
+        },
+        {
+            "eventType": "Timer reset.",
+            "message": "CountdownTimer",
+            "timestamp": "2024-11-10 14:27:55.695"
+        },
+        {
+            "eventType": "Countdown started.",
+            "message": "CountdownTimer",
+            "timestamp": "2024-11-10 14:27:55.707"
+        },
+        {
+            "eventType": "Target spawning started.",
+            "message": "TargetSpawner",
+            "timestamp": "2024-11-10 14:27:58.689"
+        },
+        {
+            "eventType": "Weapon fired. Ammo left: 9",
+            "message": "Weapon",
+            "timestamp": "2024-11-10 14:27:58.965"
+        }
+    ]
+}
+```
 
 ### Animations
 

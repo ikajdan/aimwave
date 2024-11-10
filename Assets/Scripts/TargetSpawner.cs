@@ -24,6 +24,7 @@ public class TargetSpawner : MonoBehaviour
     {
         if (TargetSpawnerActive && !waitingForRespawn)
         {
+            Logger.Instance.LogEvent("Target spawning started.", "TargetSpawner");
             SpawnTargetsImmediately();
         }
     }
@@ -94,18 +95,21 @@ public class TargetSpawner : MonoBehaviour
         {
             Destroy(target);
         }
+        Logger.Instance.LogEvent("All targets destroyed.", "TargetSpawner");
     }
 
     public void IncrementScore()
     {
         score++;
         UpdateScoreText();
+        Logger.Instance.LogEvent("Score incremented to " + score, "TargetSpawner");
     }
 
     public void ResetScore()
     {
         score = 0;
         UpdateScoreText();
+        Logger.Instance.LogEvent("Score reset to 0.", "TargetSpawner");
     }
 
     void UpdateScoreText()

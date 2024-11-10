@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
 using TMPro;
+using System.Collections;
 
 public class Weapon : MonoBehaviour
 {
@@ -55,11 +54,11 @@ public class Weapon : MonoBehaviour
     {
         muzzleFlash.GetComponent<ParticleSystem>().Play();
         animator.SetTrigger("Fire");
-
         SoundManager.Instance.gunShot.Play();
 
         nextFireTime = Time.time + 1 / fireRate;
         currentAmmo--;
+        Logger.Instance.LogEvent("Weapon fired. Ammo left: " + currentAmmo, "Weapon");
         UpdateAmmoUI();
 
         Vector3 spreadDirection = GetSpreadDirection();
@@ -75,28 +74,24 @@ public class Weapon : MonoBehaviour
     {
         float spreadX = Random.Range(-weaponSpread, weaponSpread);
         float spreadY = Random.Range(-weaponSpread, weaponSpread);
-
         Vector3 direction = playerCamera.transform.forward +
                             playerCamera.transform.right * spreadX +
                             playerCamera.transform.up * spreadY;
-
         return direction.normalized;
     }
 
     private IEnumerator Reload()
     {
         isReloading = true;
-
         animator.SetTrigger("Reload");
-
         SoundManager.Instance.reload.Play();
+        Logger.Instance.LogEvent("Reloading started.", "Weapon");
 
         yield return new WaitForSeconds(reloadTime);
 
         currentAmmo = ammoPerClip;
-
         isReloading = false;
-
+        Logger.Instance.LogEvent("Reload complete. Ammo refilled to " + currentAmmo, "Weapon");
         UpdateAmmoUI();
     }
 

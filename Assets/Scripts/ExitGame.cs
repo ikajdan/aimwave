@@ -12,10 +12,12 @@ public class ExitGameOnEsc : MonoBehaviour
 
     void ExitGame()
     {
+        Logger.Instance.SaveLogsOnExit();
+
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-            Application.Quit();
+        Application.Quit();
 #endif
     }
 }

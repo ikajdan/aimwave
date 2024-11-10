@@ -26,6 +26,7 @@ public class CountdownTimer : MonoBehaviour
                 countdownStarted = true;
                 delayBeforeStart = 3.0f;
                 SoundManager.Instance.countDown.Play();
+                Logger.Instance.LogEvent("Countdown started.", "CountdownTimer");
             }
         }
 
@@ -60,6 +61,7 @@ public class CountdownTimer : MonoBehaviour
                 targetSpawner.DestroyAllTargets();
                 hasPlayedTimeUpSound = true;
                 countdownStarted = false;
+                Logger.Instance.LogEvent("Time's up.", "CountdownTimer");
             }
         }
     }
@@ -69,7 +71,6 @@ public class CountdownTimer : MonoBehaviour
         timeToDisplay = Mathf.Max(0, timeToDisplay);
         int seconds = Mathf.FloorToInt(timeToDisplay);
         float fractionalPart = timeToDisplay - seconds;
-        // Display only the first digit after the decimal point
         timerText.text = string.Format("{0:00}.{1:0}", seconds, Mathf.FloorToInt(fractionalPart * 10));
     }
 
@@ -92,5 +93,6 @@ public class CountdownTimer : MonoBehaviour
         targetSpawner.DestroyAllTargets();
         targetSpawner.ResetScore();
         targetSpawner.TargetSpawnerActive = false;
+        Logger.Instance.LogEvent("Timer reset.", "CountdownTimer");
     }
 }

@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
     {
         Physics.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Ignore Raycast"));
         targetSpawner = FindObjectOfType<TargetSpawner>();
+
+        Logger.Instance.LogEvent("Bullet", "Bullet created and physics collision ignored.");
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -16,11 +18,13 @@ public class Bullet : MonoBehaviour
         {
             Destroy(collision.gameObject);
             targetSpawner.IncrementScore();
+            Logger.Instance.LogEvent("Bullet", "Hit target: " + collision.gameObject.name);
             Destroy(gameObject);
         }
         else
         {
             CreateBulletHole(collision);
+            Logger.Instance.LogEvent("Bullet", "Bullet hit something else: " + collision.gameObject.name);
             Destroy(gameObject);
         }
     }
@@ -34,5 +38,7 @@ public class Bullet : MonoBehaviour
             Quaternion.LookRotation(contact.normal)
         );
         bulletHole.transform.SetParent(collision.gameObject.transform);
+
+        Logger.Instance.LogEvent("Bullet", "Bullet hole created at: " + contact.point);
     }
 }
