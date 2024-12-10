@@ -1,9 +1,11 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class CountdownTimer : MonoBehaviour
 {
     public TextMeshProUGUI timerText;
+    public TextMeshProUGUI hintText;
     public TargetSpawner targetSpawner;
     private float timeRemaining = 30.0f;
     private int previousSecond;
@@ -32,6 +34,7 @@ public class CountdownTimer : MonoBehaviour
 
         if (countdownStarted && delayBeforeStart > 0)
         {
+            hintText.text = "";
             delayBeforeStart -= Time.deltaTime;
             return;
         }
@@ -61,6 +64,7 @@ public class CountdownTimer : MonoBehaviour
                 targetSpawner.DestroyAllTargets();
                 hasPlayedTimeUpSound = true;
                 countdownStarted = false;
+                hintText.text = "Press \"SPACE\" to start";
                 Logger.Instance.LogEvent("Time's up.", "CountdownTimer");
             }
         }
