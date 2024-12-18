@@ -29,18 +29,17 @@ The game features a simple scoring system, granting 1 point for each target hit.
 
 ## Controls
 
-To control the game, the player can use the mouse to aim the gun and move the character using the `W`, `A`, `S`, and `D` keys. Shooting is triggered by pressing the `Left Mouse Button`. Reloading the gun is done by pressing the `R` key. The game begins with a press of the `Space` key. Pressing `Esc` quits the game immediately.
+To control the game, the player can use the mouse to aim the gun and move the character using the <kbd>W</kbd>, <kbd>A</kbd>, <kbd>S</kbd>, and <kbd>D</kbd> keys. Shooting is triggered by pressing the <kbd>Left Mouse Button</kbd>. Reloading the gun is done by pressing the <kbd>R</kbd> key. The game begins with a press of the <kbd>Space</kbd> key. Pressing <kbd>Esc</kbd> quits the game immediately.
 
 The following table lists the controls in the game:
 
-| Action       | Key                |
-|--------------|--------------------|
-| Aim          | Move Mouse         |
-| Move         | W, A, S, D         |
-| Shoot        | Left Mouse Button  |
-| Reload       | R                  |
-| Start Game   | Space              |
-| Exit Game    | Esc                |
+| Action       | Key                                                    |
+|--------------|--------------------------------------------------------|
+| Shoot        | <kbd>Left Mouse Button</kbd>                           |
+| Move         | <kbd>W</kbd>, <kbd>A</kbd>, <kbd>S</kbd>, <kbd>D</kbd> |
+| Reload       | <kbd>R</kbd>                                           |
+| Start Game   | <kbd>Space</kbd>                                       |
+| Exit Game    | <kbd>Esc</kbd>                                         |
 
 ## User Interface
 
